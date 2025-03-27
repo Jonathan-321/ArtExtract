@@ -1,6 +1,6 @@
 # ArtExtract
 
-A deep learning project for art classification and similarity detection.
+A deep learning project for art classification and similarity detection using convolutional-recurrent architectures.
 
 ## Project Overview
 
@@ -8,6 +8,7 @@ This project consists of two main tasks:
 
 ### Task 1: Style/Artist/Genre Classification
 - Convolutional-recurrent model for art classification using the ArtGAN WikiArt dataset
+- Classifies artwork by style, artist, genre, and other attributes
 - Outlier detection in classifications
 - Comprehensive evaluation metrics
 
