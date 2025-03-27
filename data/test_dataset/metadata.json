@@ -1,0 +1,102 @@
+[
+  {
+    "filename": "style/impressionism/monet_water_lilies.jpg",
+    "style": "impressionism",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Claude_Monet_-_Water_Lilies_-_1906%2C_Ryerson.jpg"
+  },
+  {
+    "filename": "style/impressionism/van_gogh_starry_night.jpg",
+    "style": "impressionism",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"
+  },
+  {
+    "filename": "style/impressionism/renoir_luncheon.jpg",
+    "style": "impressionism",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Pierre-Auguste_Renoir_-_Luncheon_of_the_Boating_Party_-_Google_Art_Project.jpg"
+  },
+  {
+    "filename": "style/impressionism/monet_impression.jpg",
+    "style": "impressionism",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/5/59/Monet_-_Impression%2C_Sunrise.jpg"
+  },
+  {
+    "filename": "style/impressionism/manet_olympia.jpg",
+    "style": "impressionism",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Edouard_Manet_-_Olympia_-_Google_Art_Project_3.jpg"
+  },
+  {
+    "filename": "style/baroque/rembrandt_night_watch.jpg",
+    "style": "baroque",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/The_Night_Watch_-_HD.jpg/1280px-The_Night_Watch_-_HD.jpg"
+  },
+  {
+    "filename": "style/baroque/vermeer_pearl_earring.jpg",
+    "style": "baroque",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/1665_Girl_with_a_Pearl_Earring.jpg/800px-1665_Girl_with_a_Pearl_Earring.jpg"
+  },
+  {
+    "filename": "style/baroque/rembrandt_anatomy.jpg",
+    "style": "baroque",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/4/4d/Rembrandt_-_The_Anatomy_Lesson_of_Dr_Nicolaes_Tulp.jpg"
+  },
+  {
+    "filename": "style/baroque/vermeer_milkmaid.jpg",
+    "style": "baroque",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/2/20/Johannes_Vermeer_-_Het_melkmeisje_-_Google_Art_Project.jpg"
+  },
+  {
+    "filename": "style/baroque/caravaggio_calling.jpg",
+    "style": "baroque",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/4/48/The_Calling_of_Saint_Matthew-Caravaggo_%281599-1600%29.jpg"
+  },
+  {
+    "filename": "style/baroque/vermeer_view.jpg",
+    "style": "baroque",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/a/a2/Vermeer-view-of-delft.jpg"
+  },
+  {
+    "filename": "style/baroque/caravaggio_judith.jpg",
+    "style": "baroque",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Caravaggio_Judith_Beheading_Holofernes.jpg"
+  },
+  {
+    "filename": "style/renaissance/da_vinci_mona_lisa.jpg",
+    "style": "renaissance",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/687px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"
+  },
+  {
+    "filename": "style/renaissance/botticelli_venus.jpg",
+    "style": "renaissance",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg/1280px-Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg"
+  },
+  {
+    "filename": "style/renaissance/raphael_school_athens.jpg",
+    "style": "renaissance",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg/1280px-%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg"
+  },
+  {
+    "filename": "style/renaissance/michelangelo_creation.jpg",
+    "style": "renaissance",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Michelangelo_-_Creation_of_Adam_%28cropped%29.jpg"
+  },
+  {
+    "filename": "style/renaissance/leonardo_vitruvian.jpg",
+    "style": "renaissance",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/2/22/Da_Vinci_Vitruve_Luc_Viatour.jpg"
+  },
+  {
+    "filename": "style/renaissance/botticelli_spring.jpg",
+    "style": "renaissance",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Botticelli-primavera.jpg"
+  },
+  {
+    "filename": "style/renaissance/michelangelo_pieta.jpg",
+    "style": "renaissance",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Michelangelo%27s_Pieta_5450_cropncleaned_edit.jpg"
+  },
+  {
+    "filename": "style/renaissance/leonardo_last_supper.jpg",
+    "style": "renaissance",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/%C3%9Altima_Cena_-_Da_Vinci_5.jpg"
+  }
+]

@@ -120,7 +120,7 @@ class ArtDataset(Dataset):
         """Return the number of samples in the dataset."""
         return len(self.dataframe)
     
-    def __getitem__(self, idx: int) -> Tuple[torch.Tensor, int]:
+    def __getitem__(self, idx: int) -> Tuple[torch.Tensor, torch.Tensor]:
         """
         Get a sample from the dataset.
         
@@ -128,7 +128,7 @@ class ArtDataset(Dataset):
             idx: Index of the sample
             
         Returns:
-            Tuple of (image, label)
+            Tuple of (image tensor, label tensor)
         """
         # Get image path and label
         row = self.dataframe.iloc[idx]
@@ -141,6 +141,9 @@ class ArtDataset(Dataset):
         # Apply transforms if available
         if self.transform:
             img = self.transform(img)
+        
+        # Convert label to tensor
+        label = torch.tensor(label, dtype=torch.long)
         
         return img, label
 
@@ -171,6 +174,13 @@ def create_data_loaders(dataframe: pd.DataFrame,
     Returns:
         Dictionary containing train, val, and test DataLoaders
     """
+    # Create label encoder
+    unique_labels = sorted(dataframe[target_column].unique())
+    label_to_idx = {label: idx for idx, label in enumerate(unique_labels)}
+    
+    # Encode labels
+    dataframe = dataframe.copy()
+    dataframe[target_column] = dataframe[target_column].map(label_to_idx)
     # Verify ratios sum to 1
     if abs(train_ratio + val_ratio + test_ratio - 1.0) > 1e-5:
         raise ValueError("Train, validation, and test ratios must sum to 1")
