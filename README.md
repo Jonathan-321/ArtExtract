@@ -23,28 +23,34 @@ This project consists of two main tasks:
 
 ```
 ArtExtract/
-├── data/                      # Data storage and preprocessing
-│   ├── preprocessing/         # Scripts for data loading and preprocessing
-│   └── README.md              # Data documentation
-├── models/                    # Model implementations
-│   ├── style_classification/  # CNN-RNN models for classification
-│   │   ├── cnn_rnn_model.py   # CNN-RNN architecture implementation
-│   │   └── outlier_detection.py # Outlier detection methods
-│   ├── similarity_detection/  # Similarity models
-│   │   ├── feature_extraction.py # Feature extraction from paintings
-│   │   ├── similarity_model.py # Similarity model implementations
+├── data/                             # Data storage and preprocessing
+│   ├── preprocessing/                # Scripts for data loading and preprocessing
+│   └── README.md                     # Data documentation
+│
+├── models/                           # Model implementations
+│   ├── style_classification/         # CNN-RNN models for classification
+│   │   ├── cnn_rnn_model.py          # CNN-RNN architecture implementation
+│   │   └── outlier_detection.py      # Outlier detection methods
+│   │
+│   ├── similarity_detection/         # Similarity models
+│   │   ├── feature_extraction.py     # Feature extraction from paintings
+│   │   ├── similarity_model.py       # Similarity model implementations
 │   │   ├── train_similarity_model.py # Training script for similarity models
-│   │   └── demo_similarity.py # Demo script for similarity detection
-│   └── utils.py               # Shared utilities
-├── notebooks/                 # Jupyter notebooks for exploration and visualization
-│   └── similarity_detection_demo.ipynb # Demo notebook for similarity detection
-├── evaluation/                # Evaluation metrics and scripts
-│   ├── classification_metrics.py # Metrics for classification task
-│   └── similarity_metrics.py  # Metrics for similarity detection task
-├── requirements.txt           # Project dependencies
-└── README.md                  # Project documentation
-```
+│   │   └── demo_similarity.py        # Demo script for similarity detection
+│   │
+│   └── utils.py                      # Shared utilities
+│
+├── notebooks/                        # Jupyter notebooks for exploration and visualization
+│   └── similarity_detection_demo.ipynb  # Demo notebook for similarity detection
+│
+├── evaluation/                       # Evaluation metrics and scripts
+│   ├── classification_metrics.py     # Metrics for classification task
+│   └── similarity_metrics.py         # Metrics for similarity detection task
+│
+├── requirements.txt                  # Project dependencies
+└── README.md                         # Project documentation
 
+```
 ## Setup and Installation
 
 1. Clone the repository
