@@ -411,7 +411,7 @@ If you use ArtExtract with enhanced features like Multispectral imaging in your 
   author = {humanai-foundation},
   title = {ArtExtract: Deep Learning for Art Classification and Similarity Detection},
   year = {2023},
-  url = {[https://github.com/https://github.com/PSY222/ArtExtract](https://github.com/humanai-foundation/ArtExtract/tree/main/ArtExtract_Soyoung)}
+  url = {https://github.com/humanai-foundation/ArtExtract/tree/main/ArtExtract_Soyoung}
 }
 ```
 
