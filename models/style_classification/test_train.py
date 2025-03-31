@@ -51,6 +51,50 @@ def load_wikiart_dataset(data_dir: str) -> pd.DataFrame:
     
     return df
 
+def load_test_dataset(data_dir: str) -> pd.DataFrame:
+    """
+    Load test dataset into a DataFrame.
+    
+    Args:
+        data_dir: Directory containing the test dataset
+        
+    Returns:
+        DataFrame with image paths and labels
+    """
+    # Create a list to store image information
+    data = []
+    
+    # Get all style directories
+    style_dir = Path(data_dir) / 'style'
+    styles = [d.name for d in style_dir.iterdir() if d.is_dir()]
+    
+    # Create style to index mapping
+    style_to_idx = {style: idx for idx, style in enumerate(sorted(styles))}
+    
+    # Iterate through each style directory
+    for style in styles:
+        style_path = style_dir / style
+        style_idx = style_to_idx[style]
+        
+        # Get all image files in this style directory
+        image_files = list(style_path.glob('*.jpg')) + list(style_path.glob('*.png'))
+        
+        # Add each image to the data list
+        for img_path in image_files:
+            data.append({
+                'image_path': str(img_path),
+                'style': style,
+                'label': style_idx
+            })
+    
+    # Create DataFrame
+    df = pd.DataFrame(data)
+    
+    logger.info(f"Loaded {len(df)} images from test dataset")
+    logger.info(f"Styles: {sorted(styles)}")
+    
+    return df
+
 def train_epoch(model: nn.Module,
                 dataloader: DataLoader,
                 criterion: nn.Module,
@@ -123,12 +167,12 @@ def validate(model: nn.Module,
 
 def main():
     # Configuration
-    data_dir = 'data/wikiart'  # WikiArt dataset directory
-    batch_size = 32  # Larger batch size for more data
-    num_epochs = 100  # More epochs for larger dataset
+    test_data_dir = 'data/test_dataset'  # Test dataset directory
+    batch_size = 4  # Small batch size for test dataset
+    num_epochs = 20  # Fewer epochs for small dataset
     learning_rate = 0.001  # Higher learning rate
     weight_decay = 0.01  # Moderate L2 regularization
-    patience = 15  # More patience for convergence
+    patience = 5  # Less patience for small dataset
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     
     logger.info(f"Using device: {device}")

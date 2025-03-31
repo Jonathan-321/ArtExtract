@@ -64,3 +64,16 @@ Thumbs.db
 
 # Project specific
 evaluation_results/
+
+# Dataset directories
+data/wikiart/
+data/wikiart_full/
+data/wikiart_refined/
+data/national_gallery/
+
+# Temporary files
+temp_image.jpg
+*.tmp
+
+# Large model files
+*.bin
