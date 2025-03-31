@@ -404,14 +404,14 @@ We are actively working on enhancing ArtExtract with:
 
 ## 📚 Citation
 
-If you use ArtExtract in your research, please cite:
+If you use ArtExtract with enhanced features like Multispectral imaging in your research, please cite:
 
 ```
 @software{ArtExtract2023,
-  author = {Your Name},
+  author = {humanai-foundation},
   title = {ArtExtract: Deep Learning for Art Classification and Similarity Detection},
   year = {2023},
-  url = {https://github.com/yourusername/ArtExtract}
+  url = {[https://github.com/https://github.com/PSY222/ArtExtract](https://github.com/humanai-foundation/ArtExtract/tree/main/ArtExtract_Soyoung)}
 }
 ```
 
