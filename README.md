@@ -1,29 +1,34 @@
-ArtExtract
+# ArtExtract
+
 A deep learning project for art classification and similarity detection using advanced convolutional-recurrent neural network architectures.
-Project Overview
+
+## Project Overview
+
 ArtExtract combines computer vision and deep learning techniques to analyze and understand artistic content. The system leverages hybrid CNN-RNN architectures to perform two primary tasks:
-Task 1: Style/Artist/Genre Classification
 
-Advanced convolutional-recurrent model for art classification using the ArtGAN WikiArt dataset
-Multiple CNN backbones (ResNet50/18, EfficientNet, MobileNetV2)
-RNN options (LSTM, GRU) with bidirectional capabilities
-Attention mechanism for focusing on relevant artistic features
-Classifies artwork by style, artist, genre, and other attributes
-Outlier detection in classifications
-Comprehensive evaluation metrics
+### Task 1: Style/Artist/Genre Classification
+- Advanced convolutional-recurrent model for art classification using the ArtGAN WikiArt dataset
+- Multiple CNN backbones (ResNet50/18, EfficientNet, MobileNetV2) 
+- RNN options (LSTM, GRU) with bidirectional capabilities
+- Attention mechanism for focusing on relevant artistic features
+- Classifies artwork by style, artist, genre, and other attributes
+- Outlier detection in classifications
+- Comprehensive evaluation metrics
 
-Task 2: Painting Similarity Detection
+### Task 2: Painting Similarity Detection
+- Sophisticated similarity model for paintings from the National Gallery of Art dataset
+- Focus on finding similar portraits, poses, or compositions
+- Feature extraction using CNN and CLIP models
+- Multiple similarity metrics including cosine similarity and Faiss indexing
+- Interactive visualization of similar paintings
+- Documented approach and evaluation metrics
 
-Sophisticated similarity model for paintings from the National Gallery of Art dataset
-Focus on finding similar portraits, poses, or compositions
-Feature extraction using CNN and CLIP models
-Multiple similarity metrics including cosine similarity and Faiss indexing
-Interactive visualization of similar paintings
-Documented approach and evaluation metrics
+## Architecture
 
-Architecture
-System Overview
-mermaidCopyflowchart TD
+### System Overview
+
+```mermaid
+flowchart TD
     subgraph ArtExtract["ArtExtract System"]
         Classification["Classification System"]
         Similarity["Similarity Detection System"]
@@ -46,8 +51,12 @@ mermaidCopyflowchart TD
     
     class ArtExtract systemNode;
     class Task1,Task2 taskNode;
-CNN-RNN Classification Architecture
-mermaidCopyflowchart LR
+```
+
+### CNN-RNN Classification Architecture
+
+```mermaid
+flowchart LR
     subgraph CNNRNNSystem["Style/Artist/Genre Classification System"]
         Input["Input Image"] --> CNN["CNN Backbone"] 
         CNN --> FeatureMaps["Feature Maps"]
@@ -66,8 +75,12 @@ mermaidCopyflowchart LR
     
     class CNNRNNSystem systemNode;
     class CNNOptions,FeatOptions,RNNOptions,Classes optionNode;
-Enhanced CNN-Attention-RNN Architecture
-mermaidCopyflowchart LR
+```
+
+### Enhanced CNN-Attention-RNN Architecture
+
+```mermaid
+flowchart LR
     subgraph AttentionSystem["CNN-Attention-RNN Architecture"]
         Input["Input Image"] --> CNN["CNN Backbone"]
         CNN --> Features["Feature Maps"]
@@ -88,8 +101,12 @@ mermaidCopyflowchart LR
     
     class AttentionSystem systemNode;
     class CNNOpt,FeatOpt,AttOpt,RNNOpt,ClassOpt optionNode;
-Painting Similarity Detection System
-mermaidCopyflowchart TD
+```
+
+### Painting Similarity Detection System
+
+```mermaid
+flowchart TD
     subgraph SimSystem["Painting Similarity Detection System"]
         Query["Query Painting"] --> FeatureExt["Feature Extraction"]
         FeatureExt --> SimComp["Similarity Computation"]
@@ -111,8 +128,12 @@ mermaidCopyflowchart TD
     class SimSystem systemNode;
     class CNNModels,SimMetrics,Vis optionNode;
     class FeatureDB dbNode;
-Feature Extraction Pipeline
-mermaidCopyflowchart LR
+```
+
+### Feature Extraction Pipeline
+
+```mermaid
+flowchart LR
     subgraph FeatureExtraction["Feature Extraction Pipeline"]
         Input["Input Image"] --> Preprocess["Preprocess Image"]
         Preprocess --> CNNForward["CNN Forward Pass"]
@@ -131,66 +152,57 @@ mermaidCopyflowchart LR
     class FeatureExtraction systemNode;
     class CNNOptions optionNode;
     class FeatureVector vectorNode;
-Technical Implementation
-CNN-RNN Classification Model
+```
+
+## Technical Implementation
+
+### CNN-RNN Classification Model
+
 The CNN-RNN classification model combines the spatial feature extraction capabilities of CNNs with the sequential modeling power of RNNs:
 
-CNN Backbone: Extracts rich visual features from artwork images
+1. **CNN Backbone**: Extracts rich visual features from artwork images
+   - Supports multiple architectures: ResNet50/18, EfficientNet-B0, MobileNetV2
+   - Pretrained on ImageNet and fine-tuned on art datasets
+   - Outputs feature maps that capture artistic elements
 
-Supports multiple architectures: ResNet50/18, EfficientNet-B0, MobileNetV2
-Pretrained on ImageNet and fine-tuned on art datasets
-Outputs feature maps that capture artistic elements
+2. **Feature Processing**: Transforms CNN features for RNN consumption
+   - Reshapes spatial features to sequential format
+   - Optional attention mechanism to focus on discriminative regions
+   - Maintains spatial relationships in feature representation
 
+3. **RNN Layer**: Processes sequential information in the feature maps
+   - LSTM or GRU cells with optional bidirectional processing
+   - Captures temporal and spatial relationships between features
+   - Attention mechanism for highlighting important features
 
-Feature Processing: Transforms CNN features for RNN consumption
+4. **Classification Layer**: Produces final style/artist/genre predictions
+   - Fully-connected layer with softmax activation
+   - Multi-class classification with confidence scores
+   - Optional outlier detection for identifying unusual artwork
 
-Reshapes spatial features to sequential format
-Optional attention mechanism to focus on discriminative regions
-Maintains spatial relationships in feature representation
+### Painting Similarity System
 
-
-RNN Layer: Processes sequential information in the feature maps
-
-LSTM or GRU cells with optional bidirectional processing
-Captures temporal and spatial relationships between features
-Attention mechanism for highlighting important features
-
-
-Classification Layer: Produces final style/artist/genre predictions
-
-Fully-connected layer with softmax activation
-Multi-class classification with confidence scores
-Optional outlier detection for identifying unusual artwork
-
-
-
-Painting Similarity System
 The similarity detection system finds paintings with similar visual characteristics:
 
-Feature Extraction: Extracts deep features from paintings
+1. **Feature Extraction**: Extracts deep features from paintings
+   - CNN-based extraction using ResNet, VGG16, or EfficientNet
+   - CLIP-based extraction for semantic understanding
+   - Produces high-dimensional feature vectors (2048-dim)
 
-CNN-based extraction using ResNet, VGG16, or EfficientNet
-CLIP-based extraction for semantic understanding
-Produces high-dimensional feature vectors (2048-dim)
+2. **Similarity Index**: Efficiently computes similarity between paintings
+   - Faiss index for fast approximate nearest neighbor search
+   - Supports different distance metrics (L2, inner product, cosine)
+   - GPU acceleration for large-scale similarity computation
 
+3. **Similarity Retrieval**: Finds and ranks similar paintings
+   - Retrieves top-K most similar paintings
+   - Ranks results by similarity score
+   - Interactive visualization of similar artwork
 
-Similarity Index: Efficiently computes similarity between paintings
+### Model Components
 
-Faiss index for fast approximate nearest neighbor search
-Supports different distance metrics (L2, inner product, cosine)
-GPU acceleration for large-scale similarity computation
-
-
-Similarity Retrieval: Finds and ranks similar paintings
-
-Retrieves top-K most similar paintings
-Ranks results by similarity score
-Interactive visualization of similar artwork
-
-
-
-Model Components
-mermaidCopyflowchart TD
+```mermaid
+flowchart TD
     subgraph Components["Model Component Structure"]
         subgraph CNNStack["CNN Stack"]
             direction TB
@@ -227,8 +239,12 @@ mermaidCopyflowchart TD
     
     class Components stackNode;
     class CNNStack,RNNStack,MultiCNN,SimComp compNode;
-Project Structure
-CopyArtExtract/
+```
+
+## Project Structure
+
+```
+ArtExtract/
 ├── data/                             # Data storage and preprocessing
 │   ├── preprocessing/                # Scripts for data loading and preprocessing
 │   └── README.md                     # Data documentation
@@ -255,8 +271,12 @@ CopyArtExtract/
 │
 ├── requirements.txt                  # Project dependencies
 └── README.md                         # Project documentation
-Data Flow
-mermaidCopyflowchart TD
+```
+
+## Data Flow
+
+```mermaid
+flowchart TD
     subgraph DataFlow["ArtExtract Data Flow"]
         InputData["Input Datasets"] --> Preprocess["Preprocessing"]
         Preprocess --> Training["Training"]
@@ -279,30 +299,39 @@ mermaidCopyflowchart TD
     class DataFlow systemNode;
     class InputData,Preprocess,DataAnalyze,Results dataNode;
     class TrainedModels,Inference modelNode;
-Setup and Installation
+```
 
-Clone the repository:
-bashCopygit clone https://github.com/yourusername/ArtExtract.git
-cd ArtExtract
+## Setup and Installation
 
-Install dependencies:
-bashCopypip install -r requirements.txt
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/ArtExtract.git
+   cd ArtExtract
+   ```
 
-Download the datasets:
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-ArtGAN WikiArt dataset: https://github.com/cs-chan/ArtGAN/blob/master/WikiArt%20Dataset/README.md
-National Gallery of Art dataset: https://github.com/NationalGalleryOfArt/opendata
+3. Download the datasets:
+   - ArtGAN WikiArt dataset: https://github.com/cs-chan/ArtGAN/blob/master/WikiArt%20Dataset/README.md
+   - National Gallery of Art dataset: https://github.com/NationalGalleryOfArt/opendata
 
+4. Prepare data:
+   ```bash
+   python data/preprocessing/prepare_data.py --dataset wikiart --output_dir data/processed/wikiart
+   python data/preprocessing/prepare_data.py --dataset nga --output_dir data/processed/nga
+   ```
 
-Prepare data:
-bashCopypython data/preprocessing/prepare_data.py --dataset wikiart --output_dir data/processed/wikiart
-python data/preprocessing/prepare_data.py --dataset nga --output_dir data/processed/nga
+## Usage
 
+### Style/Artist/Genre Classification
 
-Usage
-Style/Artist/Genre Classification
 Use the CNN-RNN model for art classification:
-pythonCopyfrom models.style_classification.cnn_rnn_model import CNNRNNModel
+
+```python
+from models.style_classification.cnn_rnn_model import CNNRNNModel
 
 # Initialize model
 model = CNNRNNModel(
@@ -326,17 +355,28 @@ img = img / 255.0  # normalize
 img = np.expand_dims(img, axis=0)  # add batch dimension
 
 predictions = model.predict(img)
-Attention Visualization
+```
+
+### Attention Visualization
+
 Visualize the attention weights to understand which parts of the artwork influence classification:
-pythonCopyfrom models.style_classification.visualization import visualize_attention
+
+```python
+from models.style_classification.visualization import visualize_attention
 
 # Get attention weights and visualize
 attention_weights = model.get_attention_weights(img)
 visualize_attention(img, attention_weights, save_path='attention_map.jpg')
-Painting Similarity Detection
-Feature Extraction
+```
+
+### Painting Similarity Detection
+
+#### Feature Extraction
+
 Extract features from paintings:
-pythonCopyfrom models.similarity_detection.feature_extraction import FeatureExtractor
+
+```python
+from models.similarity_detection.feature_extraction import FeatureExtractor
 
 # Initialize feature extractor (options: 'resnet50', 'vgg16', 'clip')
 extractor = FeatureExtractor(model_type='resnet50')
@@ -346,9 +386,14 @@ features = extractor.extract_features_from_image(image)
 
 # Extract features from a directory of images
 features_dict = extractor.extract_features_from_directory('path/to/images/')
-Finding Similar Paintings
+```
+
+#### Finding Similar Paintings
+
 Find similar paintings using the similarity model:
-pythonCopyfrom models.similarity_detection.similarity_model import (
+
+```python
+from models.similarity_detection.similarity_model import (
     create_similarity_model,
     PaintingSimilaritySystem
 )
@@ -369,49 +414,64 @@ result = similarity_system.find_similar_paintings(query_idx=0, k=5)
 # Find similar paintings to a new image
 new_image = cv2.imread('path/to/new_artwork.jpg')
 similar_paintings = similarity_system.find_similar_to_new(new_image, k=5)
-Interactive Demo
+```
+
+#### Interactive Demo
+
 Run the interactive similarity detection demo:
-bashCopypython models/similarity_detection/demo_similarity.py --model_path path/to/model --interactive
-Evaluation Metrics
-Classification Metrics
+
+```bash
+python models/similarity_detection/demo_similarity.py --model_path path/to/model --interactive
+```
+
+## Evaluation Metrics
+
+### Classification Metrics
+
 The classification models are evaluated using:
+- Accuracy: Overall correctness of predictions
+- Precision & Recall: Measure of exactness and completeness
+- F1 Score: Harmonic mean of precision and recall
+- Confusion Matrix: Detailed breakdown of classification performance
+- ROC Curve and AUC: Performance across different thresholds
 
-Accuracy: Overall correctness of predictions
-Precision & Recall: Measure of exactness and completeness
-F1 Score: Harmonic mean of precision and recall
-Confusion Matrix: Detailed breakdown of classification performance
-ROC Curve and AUC: Performance across different thresholds
+### Similarity Metrics
 
-Similarity Metrics
 The similarity models are evaluated using:
+- Precision@k: Precision of the top-k retrieved results
+- Mean Average Precision (MAP): Overall precision across all queries
+- Normalized Discounted Cumulative Gain (NDCG): Ranking quality measure
+- User Studies: Human evaluation of similarity results
 
-Precision@k: Precision of the top-k retrieved results
-Mean Average Precision (MAP): Overall precision across all queries
-Normalized Discounted Cumulative Gain (NDCG): Ranking quality measure
-User Studies: Human evaluation of similarity results
+## Notebooks
 
-Notebooks
 Explore the project in depth with our Jupyter notebooks:
+- [Classification Demo](notebooks/classification_demo.ipynb): Walkthrough of art classification
+- [Similarity Detection Demo](notebooks/similarity_detection_demo.ipynb): Interactive similarity visualization
+- [Model Evaluation](notebooks/model_evaluation.ipynb): Performance analysis of models
 
-Classification Demo: Walkthrough of art classification
-Similarity Detection Demo: Interactive similarity visualization
-Model Evaluation: Performance analysis of models
+## Future Work
 
-Future Work
 We are actively working on enhancing ArtExtract with:
+- Transformer-based architectures (Vision Transformer)
+- Multi-modal models combining image and textual descriptions
+- Self-supervised learning approaches for improved feature extraction
+- Style transfer capabilities
+- Interactive web application for art exploration
 
-Transformer-based architectures (Vision Transformer)
-Multi-modal models combining image and textual descriptions
-Self-supervised learning approaches for improved feature extraction
-Style transfer capabilities
-Interactive web application for art exploration
+## Citation
 
-Citation
 If you use ArtExtract in your research, please cite:
-Copy@software{ArtExtract2023,
+
+```
+@software{ArtExtract2023,
   author = {Your Name},
   title = {ArtExtract: Deep Learning for Art Classification and Similarity Detection},
   year = {2023},
   url = {https://github.com/yourusername/ArtExtract}
 }
-License
+```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
