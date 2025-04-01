@@ -1,3 +1,5 @@
+I see the issue with the mermaid diagram. Let me fix both diagrams to ensure they work properly with GitHub's mermaid renderer:
+
 # ArtExtract
 
 <div align="center">
@@ -21,44 +23,36 @@ ArtExtract is an advanced deep learning framework for art analysis that combines
 
 ```mermaid
 flowchart TD
-    classDef mainSystem fill:#f0f8ff,stroke:#333,stroke-width:2px
-    classDef subSystem fill:#e6f7ff,stroke:#333,stroke-width:1px
-    classDef component fill:#fff7e6,stroke:#333,stroke-width:1px
-    classDef dataflow fill:#f9f9f9,stroke:#333,stroke-width:1px
-    classDef evaluation fill:#e6ffe6,stroke:#333,stroke-width:1px
-    classDef output fill:#ffe6e6,stroke:#333,stroke-width:1px
-    classDef database fill:#e6e6ff,stroke:#333,stroke-width:1px
-
-    ArtExtract["ArtExtract System"]:::mainSystem
-
-    subgraph DataFlow["Data Flow & Processing"]:::dataflow
+    ArtExtract["ArtExtract System"]
+    
+    subgraph DataFlow["Data Flow & Processing"]
         Input["Art Image Input"]
         Preproc["Preprocessing<br>- Resizing<br>- Normalization<br>- Augmentation"]
         FeatExt["Feature Extraction<br>- CNN Backbones<br>- CLIP Models"]
-        FeatDB["Feature Database"]:::database
+        FeatDB["Feature Database"]
         Input --> Preproc --> FeatExt
         FeatExt --> FeatDB
     end
-
-    subgraph Classification["Style/Artist Classification"]:::subSystem
-        CNN["CNN Backbone<br>ResNet/EfficientNet"]:::component
-        AttMech["Attention Mechanism"]:::component
-        RNN["Bidirectional RNN<br>LSTM/GRU"]:::component
-        ClassHead["Classification Head"]:::component
+    
+    subgraph Classification["Style/Artist Classification"]
+        CNN["CNN Backbone<br>ResNet/EfficientNet"]
+        AttMech["Attention Mechanism"]
+        RNN["Bidirectional RNN<br>LSTM/GRU"]
+        ClassHead["Classification Head"]
         
         CNN --> AttMech --> RNN --> ClassHead
     end
-
-    subgraph Similarity["Painting Similarity Detection"]:::subSystem
-        SimComp["Similarity Computation<br>- Cosine Similarity<br>- L2 Distance"]:::component
-        FaissIdx["Faiss Indexing"]:::component
-        RankEng["Ranking Engine"]:::component
-        TopK["Top-K Similar Results"]:::component
+    
+    subgraph Similarity["Painting Similarity Detection"]
+        SimComp["Similarity Computation<br>- Cosine Similarity<br>- L2 Distance"]
+        FaissIdx["Faiss Indexing"]
+        RankEng["Ranking Engine"]
+        TopK["Top-K Similar Results"]
         
         SimComp --> FaissIdx --> RankEng --> TopK
     end
-
-    subgraph Evaluation["Evaluation & Insights"]:::evaluation
+    
+    subgraph Evaluation["Evaluation & Insights"]
         ClassEval["Classification Metrics<br>- Accuracy, Precision, Recall<br>- F1 Score, ROC/AUC"]
         SimEval["Similarity Metrics<br>- Precision@k<br>- MAP, NDCG"]
         Outlier["Outlier Detection<br>- Isolation Forest<br>- Local Outlier Factor<br>- Autoencoder"]
@@ -68,19 +62,29 @@ flowchart TD
         SimEval --- Outlier
         Outlier --- Visual
     end
-
-    subgraph Results["User Interfaces"]:::output
+    
+    subgraph Results["User Interfaces"]
         Demo["Interactive Demo"]
         WebApp["Web Application"]
         API["REST API"]
     end
-
-    DataFlow --> Classification & Similarity
+    
+    DataFlow --> Classification
+    DataFlow --> Similarity
     FeatDB --> SimComp
     FeatExt --> CNN
     Classification --> Evaluation
     Similarity --> Evaluation
     Evaluation --> Results
+    
+    %% Visual styling through different node shapes and colors
+    style ArtExtract fill:#f0f8ff,stroke:#333,stroke-width:2px
+    style DataFlow fill:#f9f9f9,stroke:#333,stroke-width:1px
+    style Classification fill:#e6f7ff,stroke:#333,stroke-width:1px
+    style Similarity fill:#e6f7ff,stroke:#333,stroke-width:1px
+    style Evaluation fill:#e6ffe6,stroke:#333,stroke-width:1px
+    style Results fill:#ffe6e6,stroke:#333,stroke-width:1px
+    style FeatDB fill:#e6e6ff,stroke:#333,stroke-width:1px
 ```
 
 ## 🔧 Technical Implementation
@@ -89,44 +93,53 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-    classDef input fill:#e6f7ff,stroke:#333,stroke-width:1px
-    classDef process fill:#fff7e6,stroke:#333,stroke-width:1px
-    classDef model fill:#f0f0f0,stroke:#333,stroke-width:1px
-    classDef output fill:#e6ffe6,stroke:#333,stroke-width:1px
-    classDef database fill:#e6e6ff,stroke:#333,stroke-width:1px
-
-    Input["Art Image<br>(224×224 RGB)"]:::input --> CNN["CNN Feature Extraction<br>• ResNet50/18<br>• EfficientNet<br>• VGG16/CLIP"]:::model
+    Input["Art Image<br>(224×224 RGB)"] --> CNN["CNN Feature Extraction<br>• ResNet50/18<br>• EfficientNet<br>• VGG16/CLIP"]
     
     subgraph ClassFlow["Classification Pipeline"]
         direction TB
-        FeatProc["Feature Processing<br>• Spatial Features<br>• Attention Maps"]:::process
-        BiRNN["Bidirectional RNN<br>• LSTM/GRU<br>• Temporal Features"]:::model
-        ClassOut["Classification Output<br>• Style, Artist, Genre<br>• Confidence Scores"]:::output
+        FeatProc["Feature Processing<br>• Spatial Features<br>• Attention Maps"]
+        BiRNN["Bidirectional RNN<br>• LSTM/GRU<br>• Temporal Features"]
+        ClassOut["Classification Output<br>• Style, Artist, Genre<br>• Confidence Scores"]
         
         FeatProc --> BiRNN --> ClassOut
     end
     
     subgraph SimFlow["Similarity Pipeline"]
         direction TB
-        FeatVec["Feature Vectors<br>(2048-dim)"]:::process
-        IndexDB["Faiss Index<br>• Fast ANN Search<br>• GPU Acceleration"]:::database
-        SimOut["Similarity Output<br>• Similar Paintings<br>• Ranked by Score"]:::output
+        FeatVec["Feature Vectors<br>(2048-dim)"]
+        IndexDB["Faiss Index<br>• Fast ANN Search<br>• GPU Acceleration"]
+        SimOut["Similarity Output<br>• Similar Paintings<br>• Ranked by Score"]
         
         FeatVec --> IndexDB --> SimOut
     end
     
-    CNN --> ClassFlow & SimFlow
+    CNN --> ClassFlow
+    CNN --> SimFlow
     
     subgraph Evaluation["Evaluation & Analysis"]
         direction TB
-        ClassMetrics["Classification Metrics<br>• Accuracy: 85-92%<br>• F1 Score: 0.83-0.90"]:::output
-        SimMetrics["Similarity Metrics<br>• Precision@10: 0.76<br>• MAP: 0.81"]:::output
-        Outliers["Outlier Detection<br>• Anomaly Score<br>• Visualization"]:::process
+        ClassMetrics["Classification Metrics<br>• Accuracy: 85-92%<br>• F1 Score: 0.83-0.90"]
+        SimMetrics["Similarity Metrics<br>• Precision@10: 0.76<br>• MAP: 0.81"]
+        Outliers["Outlier Detection<br>• Anomaly Score<br>• Visualization"]
     end
     
     ClassOut --> ClassMetrics
     SimOut --> SimMetrics
-    ClassMetrics & SimMetrics --> Outliers
+    ClassMetrics --> Outliers
+    SimMetrics --> Outliers
+    
+    %% Visual styling
+    style Input fill:#e6f7ff,stroke:#333,stroke-width:1px
+    style CNN fill:#f0f0f0,stroke:#333,stroke-width:1px
+    style ClassFlow fill:#fff7e6,stroke:#333,stroke-width:1px
+    style SimFlow fill:#fff7e6,stroke:#333,stroke-width:1px
+    style Evaluation fill:#e6ffe6,stroke:#333,stroke-width:1px
+    style FeatProc fill:#fff7e6,stroke:#333,stroke-width:1px
+    style BiRNN fill:#f0f0f0,stroke:#333,stroke-width:1px
+    style ClassOut fill:#e6ffe6,stroke:#333,stroke-width:1px
+    style FeatVec fill:#fff7e6,stroke:#333,stroke-width:1px
+    style IndexDB fill:#e6e6ff,stroke:#333,stroke-width:1px
+    style SimOut fill:#e6ffe6,stroke:#333,stroke-width:1px
 ```
 
 ## 📁 Project Structure
