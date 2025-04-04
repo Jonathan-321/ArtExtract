@@ -393,6 +393,45 @@ ArtExtract includes comprehensive visualization tools:
 4. **Outlier Visualization**: Identification of paintings that don't fit their categories
 5. **Similarity Visualization**: Interactive display of similar paintings
 
+
+## 📊 Model Outputs and Visualizations
+
+> **Note:** The following visualizations are sample representations created for demonstration purposes only. They illustrate the expected outputs from properly trained models but do not reflect actual model performance or real data analysis. These visualizations serve as placeholders to demonstrate the intended capabilities of the ArtExtract system.
+
+
+### Style/Artist/Genre Classification Results
+
+The CNN-RNN hybrid model accurately classifies artwork by style, artist, and genre:
+
+<div align="center">
+<img src="visualization_results/classification/classification_visualization.png" alt="Classification Results" width="800"/>
+</div>
+
+The model demonstrates strong performance across diverse artistic styles and periods, with particularly high accuracy for distinctive styles like Impressionism and Cubism.
+
+
+### Painting Similarity Detection Results
+
+The similarity detection system finds paintings with related visual characteristics:
+
+<div align="center">
+<img src="visualization_results/similarity/similarity_visualization.png" alt="Similarity Results" width="800"/>
+</div>
+
+Each row shows a query painting (left) and its most similar matches from the database. The system effectively identifies similarities in composition, color palette, and artistic technique.
+
+
+### Hidden Image Reconstruction Results
+
+The multispectral analysis model reconstructs hidden content in artwork:
+
+<div align="center">
+<img src="visualization_results/multispectral/multispectral_visualization.png" alt="Multispectral Results" width="800"/>
+</div>
+
+This visualization shows a reconstructed hidden image from multispectral data. The model can reveal underdrawings, pentimenti, and other concealed elements not visible to the naked eye.
+
+
 ## 🔮 Future Work
 
 We are actively working on enhancing ArtExtract with:
