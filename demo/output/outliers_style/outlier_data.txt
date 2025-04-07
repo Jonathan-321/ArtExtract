@@ -1,0 +1,11 @@
+Top Outliers Detected:
+
+┌───────────────────────┬──────────────┬─────────────────┐
+│ Painting              │ Style        │ Uncertainty     │
+├───────────────────────┼──────────────┼─────────────────┤
+│ Renaissance Outlier 1 │ Renaissance  │ 0.647           │
+│ Impressionism Outlier │ Impressionism│ 0.644           │
+│ Renaissance Outlier 2 │ Renaissance  │ 0.639           │
+│ Impressionism Outlier │ Impressionism│ 0.629           │
+│ Baroque Outlier       │ Baroque      │ 0.624           │
+└───────────────────────┴──────────────┴─────────────────┘

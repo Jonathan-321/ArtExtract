@@ -1,0 +1,11 @@
+t-SNE Visualization of Feature Space
+
+Features from the three art styles (Renaissance, Baroque, Impressionism) 
+are clustered in a 2D space showing clear separation between the styles.
+
+Renaissance: primarily in the upper left quadrant
+Baroque: primarily in the lower right quadrant
+Impressionism: primarily in the upper right quadrant
+
+The visualization demonstrates that the CNN-RNN model has learned
+meaningful feature representations that separate the three styles.

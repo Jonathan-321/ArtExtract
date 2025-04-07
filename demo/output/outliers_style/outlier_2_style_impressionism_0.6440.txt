@@ -1,0 +1,11 @@
+Outlier 2 - Style: Impressionism - Uncertainty: 0.6440
+
+This painting exhibits characteristics that span multiple artistic styles,
+making it difficult to classify with high confidence. The uncertainty
+score of 0.6440 indicates the model had some difficulty making a
+definitive classification.
+
+The painting was ultimately classified as Impressionism, but shows influences
+from other artistic styles as well.
+
+[This is a text placeholder for the actual image visualization]

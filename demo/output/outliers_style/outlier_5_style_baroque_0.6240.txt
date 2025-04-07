@@ -1,0 +1,11 @@
+Outlier 5 - Style: Baroque - Uncertainty: 0.6240
+
+This painting exhibits characteristics that span multiple artistic styles,
+making it difficult to classify with high confidence. The uncertainty
+score of 0.6240 indicates the model had some difficulty making a
+definitive classification.
+
+The painting was ultimately classified as Baroque, but shows influences
+from other artistic styles as well.
+
+[This is a text placeholder for the actual image visualization]

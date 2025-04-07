@@ -1,0 +1,24 @@
+{
+    "data_dir": "data/test_dataset",
+    "attributes": [
+        "style",
+        "artist",
+        "genre"
+    ],
+    "batch_size": 4,
+    "num_workers": 0,
+    "backbone": "resnet18",
+    "rnn_hidden_size": 512,
+    "rnn_num_layers": 2,
+    "dropout": 0.5,
+    "lr": 0.0001,
+    "weight_decay": 0.0001,
+    "num_epochs": 5,
+    "save_freq": 5,
+    "save_dir": "model_checkpoints/classification_test",
+    "pretrained": true,
+    "resume": null,
+    "seed": 42,
+    "limit_samples": null,
+    "test_mode": true
+}

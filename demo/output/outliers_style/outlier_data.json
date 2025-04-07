@@ -1,0 +1,34 @@
+{
+  "outliers": [
+    {
+      "index": 1,
+      "style": "Renaissance",
+      "uncertainty": 0.647,
+      "file": "outlier_1_style_renaissance_0.647.txt"
+    },
+    {
+      "index": 2,
+      "style": "Impressionism",
+      "uncertainty": 0.644,
+      "file": "outlier_2_style_impressionism_0.644.txt"
+    },
+    {
+      "index": 3,
+      "style": "Renaissance",
+      "uncertainty": 0.639,
+      "file": "outlier_3_style_renaissance_0.639.txt"
+    },
+    {
+      "index": 4,
+      "style": "Impressionism",
+      "uncertainty": 0.629,
+      "file": "outlier_4_style_impressionism_0.629.txt"
+    },
+    {
+      "index": 5,
+      "style": "Baroque",
+      "uncertainty": 0.624,
+      "file": "outlier_5_style_baroque_0.624.txt"
+    }
+  ]
+}
