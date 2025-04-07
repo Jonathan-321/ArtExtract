@@ -98,9 +98,9 @@ ArtExtract is an advanced deep learning framework for art analysis that combines
       ▼            ▼               ▼                ▼              ▼
 ┌──────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌─────────┐
 │ 224x224  │ │• ResNet50    │ │• Spatial     │ │• GRU         │ │• Style  │
-│ RGB      │ │• ResNet18    │ │  Features    │ │• Bidirectional│ │• Artist│
-│ Artwork  │ │• EfficientNet│ │• Attention   │ │• Attention   │ │• Genre  │
-│ Image    │ │• MobileNetV2 │ │• Mechanism   │ │• Weights     │ │• Softmax│
+│ RGB      │ │• ResNet18    │ │• EfficientNet│ │• Attention   │ │• Artist│
+│ Artwork  │ │• MobileNetV2 │ │• Attention   │ │• Weights     │ │• Genre  │
+│ Image    │ │• Custom      │ │• Mechanism   │ │• L2 Distance │ │• Softmax│
 └──────────┘ └──────────────┘ └──────────────┘ └──────────────┘ └─────────┘
 ```
 
@@ -473,17 +473,17 @@ ArtExtract/
 
 3. Train the model with the test dataset:
    ```bash
-   python train_cnn_rnn_classifier.py --data_dir data/test_dataset --batch_size 4 --num_epochs 5 --pretrained --test_mode --backbone resnet18 --save_dir model_checkpoints/classification_test --num_workers 0
+   ./train.py --data_dir data/test_dataset --batch_size 4 --num_epochs 5 --pretrained --test_mode --backbone resnet18 --save_dir model_checkpoints/classification_test 
    ```
 
 4. Evaluate the trained model:
    ```bash
-   python evaluate_cnn_rnn_classifier.py --data_dir data/test_dataset --checkpoint model_checkpoints/classification_test/best_style_model.pth --test_mode --num_workers 0 --output_dir evaluation_results/test --backbone resnet18
+   ./evaluate.py --data_dir data/test_dataset --checkpoint model_checkpoints/classification_test/best_style_model.pth --test_mode --output_dir evaluation_results/test --backbone resnet18
    ```
 
 5. For training with the full WikiArt dataset:
    ```bash
-   python train_cnn_rnn_classifier.py --data_dir path/to/wikiart --batch_size 32 --num_epochs 30 --pretrained --backbone resnet50 --save_dir model_checkpoints/classification
+   ./train.py --data_dir path/to/wikiart --batch_size 32 --num_epochs 30 --pretrained --backbone resnet50 --save_dir model_checkpoints/classification
    ```
 
 ## 💻 Usage
@@ -493,13 +493,13 @@ ArtExtract/
 Use the CNN-RNN model for art classification:
 
 ```python
-from models.style_classification.cnn_rnn_model import CNNRNNModel
+from models.classification.cnn_rnn_classifier import CNNRNNModel
 
 # Initialize model
 model = CNNRNNModel(
     num_classes=10,
     cnn_backbone='resnet50',
-    rnn_type='lstm',
+    rnn_type='gru',
     bidirectional=True,
     use_attention=True
 )
@@ -524,20 +524,20 @@ predictions = model.predict(img)
 Detect outliers in your dataset:
 
 ```python
-from models.style_classification.outlier_detection import IsolationForestDetector
+from models.classification.outlier_detection import SoftmaxUncertaintyDetector
 
 # Initialize detector
-detector = IsolationForestDetector()
+detector = SoftmaxUncertaintyDetector()
 
-# Fit detector on features
-detector.fit(features)
+# Get outlier scores from model predictions
+outlier_scores = detector.get_uncertainty_scores(predictions)
 
-# Get outlier indices
-outlier_indices = detector.get_outlier_indices(features)
+# Identify top outliers
+top_outliers = detector.get_top_outliers(outlier_scores, k=5)
 
 # Visualize outliers
-from models.style_classification.outlier_detection import visualize_outliers
-visualize_outliers(features, labels, outlier_indices, class_names)
+from models.utils import visualize_outliers
+visualize_outliers(images, predictions, outlier_scores, class_names)
 ```
 
 ### Painting Similarity Detection
@@ -545,9 +545,9 @@ visualize_outliers(features, labels, outlier_indices, class_names)
 Extract features from paintings:
 
 ```python
-from models.similarity_detection.feature_extraction import FeatureExtractor
+from models.similarity.feature_extraction import FeatureExtractor
 
-# Initialize feature extractor (options: 'resnet50', 'vgg16', 'clip')
+# Initialize feature extractor
 extractor = FeatureExtractor(model_type='resnet50')
 
 # Extract features from an image
@@ -560,23 +560,20 @@ features_dict = extractor.extract_features_from_directory('path/to/images/')
 Find similar paintings using the similarity model:
 
 ```python
-from models.similarity_detection.similarity_model import (
-    create_similarity_model,
-    PaintingSimilaritySystem
-)
-
-# Create similarity model (options: 'cosine', 'faiss')
-similarity_model = create_similarity_model('faiss', feature_dim=2048)
+from models.similarity.similarity_model import SimilaritySystem
 
 # Create painting similarity system
-similarity_system = PaintingSimilaritySystem(
-    similarity_model=similarity_model,
-    features=features,
-    image_paths=image_paths
+similarity_system = SimilaritySystem(
+    feature_extractor='resnet50',
+    index_type='faiss',
+    feature_dim=2048
 )
 
+# Index a collection of images
+similarity_system.index_images('path/to/image/collection')
+
 # Find similar paintings
-result = similarity_system.find_similar_paintings(query_idx=0, k=5)
+similar_paintings = similarity_system.find_similar(query_image_path, k=5)
 ```
 
 ### Running the Visualization Demo
@@ -588,7 +585,7 @@ We've created a simple visualization demo that generates text-based representati
 bash demo/run_visualizations.sh
 ```
 
-This will generate text-based visualizations that match the ones shown in this README and save them to the appropriate locations. You can view them with commands like:
+This will generate text-based visualizations and save them to the appropriate locations. You can view them with commands like:
 
 ```bash
 # View confusion matrix
@@ -598,13 +595,12 @@ cat evaluation_results/test/confusion_matrix_style.txt
 cat evaluation_results/test/outliers_style/outlier_data.txt
 ```
 
-The visualization script has zero dependencies beyond basic Python or bash, making it easy to run in any environment.
-
 ## 📊 Evaluation Metrics
 
 ### Classification Metrics
 
 The classification models are evaluated using:
+
 - **Accuracy**: Overall correctness of predictions
 - **Precision & Recall**: Measure of exactness and completeness
 - **F1 Score**: Harmonic mean of precision and recall
@@ -614,6 +610,7 @@ The classification models are evaluated using:
 ### Similarity Metrics
 
 The similarity models are evaluated using:
+
 - **Precision@k**: Precision of the top-k retrieved results
 - **Mean Average Precision (MAP)**: Overall precision across all queries
 - **Normalized Discounted Cumulative Gain (NDCG)**: Ranking quality measure
@@ -629,113 +626,6 @@ ArtExtract includes comprehensive visualization tools:
 4. **Outlier Visualization**: Identification of paintings that don't fit their categories
 5. **Similarity Visualization**: Interactive display of similar paintings
 
-## 📊 Model Outputs and Visualizations
-
-The following visualizations represent the actual results from our model training and evaluation on the test dataset.
-
-### Style Classification Results
-
-Our CNN-RNN hybrid model with ResNet18 backbone achieved 85% accuracy on the test dataset containing Renaissance, Baroque, and Impressionism paintings:
-
-<div align="center">
-<pre>
-┌─────────────┬───────────────┬─────────┬──────────────┐
-│             │ Renaissance   │ Baroque │ Impressionism│
-├─────────────┼───────────────┼─────────┼──────────────┤
-│ Renaissance │      7        │    0    │      0       │
-├─────────────┼───────────────┼─────────┼──────────────┤
-│ Baroque     │      1        │    4    │      0       │
-├─────────────┼───────────────┼─────────┼──────────────┤
-│Impressionism│      2        │    0    │      6       │
-└─────────────┴───────────────┴─────────┴──────────────┘
-</pre>
-</div>
-
-The confusion matrix above demonstrates that the model correctly classified:
-- 7/7 Renaissance paintings (100% accuracy)
-- 4/5 Baroque paintings (80% accuracy) 
-- 6/8 Impressionism paintings (75% accuracy)
-
-### Outlier Detection Results
-
-Our softmax uncertainty-based outlier detection identified paintings with ambiguous style characteristics:
-
-<div align="center">
-<p><strong>Top Outliers Detected:</strong></p>
-<pre>
-┌───────────────────────┬──────────────┬─────────────────┐
-│ Painting              │ Style        │ Uncertainty     │
-├───────────────────────┼──────────────┼─────────────────┤
-│ Renaissance Outlier 1 │ Renaissance  │ 0.647           │
-│ Impressionism Outlier │ Impressionism│ 0.644           │
-│ Renaissance Outlier 2 │ Renaissance  │ 0.639           │
-│ Impressionism Outlier │ Impressionism│ 0.629           │
-│ Baroque Outlier       │ Baroque      │ 0.624           │
-└───────────────────────┴──────────────┴─────────────────┘
-</pre>
-</div>
-
-These paintings exhibit characteristics that span multiple artistic styles, making classification more challenging. Higher uncertainty scores indicate that the model had difficulty assigning a definitive style classification.
-
-### Training Progress Visualization
-
-The model showed rapid convergence during training on our test dataset:
-
-<div align="center">
-<pre>
-┌────────┬────────────┬─────────┐
-│ Epoch  │ Accuracy   │ Loss    │
-├────────┼────────────┼─────────┤
-│ 1      │ 35.71%     │ 0.98    │
-│ 2      │ 50.00%     │ 0.72    │
-│ 3      │ 64.29%     │ 0.53    │
-│ 4      │ 78.57%     │ 0.41    │
-│ 5      │ 85.71%     │ 0.32    │
-└────────┴────────────┴─────────┘
-</pre>
-</div>
-
-Starting from an initial accuracy of 35.71%, the model achieved 85.71% accuracy by the end of training, demonstrating the effectiveness of our CNN-RNN architecture even with limited training data.
-
-### Future Similarity Detection System
-
-For our upcoming painting similarity detection system, we plan to implement:
-
-<div align="center">
-<pre>
-┌─────────────────────────────────────────────────────────────────────────┐
-│                    Painting Similarity Detection System                 │
-├───────────┬─────────────┬────────────────┬────────────────┬─────────────┤
-│  Query    │  Feature    │   Similarity   │    Ranking     │  Retrieved  │
-│  Painting │  Extraction │   Computation  │    Engine      │  Paintings  │
-└─────┬─────┴──────┬──────┴────────┬───────┴────────┬───────┴──────┬──────┘
-      │            │               │                │              │
-      ▼            ▼               ▼                ▼              ▼
-┌──────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌─────────┐
-│ Input    │ │• CNN Features│ │• Cosine      │ │• Top-K       │ │• Similar │
-│ Artwork  │ │• CLIP Model  │ │• Similarity  │ │  Results     │ │  Artwork │
-│ Image    │ │• Custom      │ │• Faiss Index │ │• Confidence  │ │• Ranked  │
-│          │ │  Features    │ │              │ │  Scores      │ │  Results │
-└──────────┘ └──────────────┘ └──────────────┘ └──────────────┘ └─────────┘
-</pre>
-</div>
-
-The system will extract deep features from the National Gallery of Art dataset using multiple feature extraction approaches (CNN-based, CLIP-based, and custom art-specific features), with results visualized in an interactive interface that provides similarity scores and explanations.
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-### Training and Evaluation
-
-You can train and evaluate the CNN-RNN classifier using the provided scripts:
-
-```bash
-# Train the model
-./train.py --data_dir data/test_dataset --batch_size 4 --num_epochs 5 --pretrained --test_mode --backbone resnet18 --save_dir model_checkpoints/classification_test
-
-# Evaluate the model
-./evaluate.py --data_dir data/test_dataset --checkpoint model_checkpoints/classification_test/best_style_model.pth --output_dir evaluation_results/test --test_mode --backbone resnet18
-```
-
-See `scripts/README.md` for more details on the available parameters and script functionality.
