@@ -225,7 +225,8 @@ Analysis of the confusion matrix reveals the model's classification patterns:
 ├─────────────┼───────────────┼─────────┼──────────────┤
 │Impressionism│      2        │    0    │      6       │
 └─────────────┴───────────────┴─────────┴──────────────┘
-```
+</pre>
+</div>
 
 Key insights:
 - Perfect classification of Renaissance paintings
@@ -407,39 +408,39 @@ ArtExtract/
 │   │   └── metadata.json             # Metadata for test images
 │   └── README.md                     # Data documentation
 │
-├── models/                           # Model implementations
-│   ├── classification/               # CNN-RNN models for classification
-│   │   ├── cnn_rnn_classifier.py     # CNN-RNN architecture implementation
-│   │   └── wikiart_dataset.py        # Dataset loading and preprocessing
-│   ├── utils.py                      # Utility functions for model training and evaluation
-│   └── similarity/                   # Similarity models
-│       ├── feature_extraction.py     # Feature extraction from paintings
-│       └── similarity_model.py       # Similarity model implementations
+├── models/                             # Model implementations
+│   ├── classification/                 # CNN-RNN models for classification
+│   │   ├── cnn_rnn_classifier.py       # CNN-RNN architecture implementation
+│   │   └── wikiart_dataset.py          # Dataset loading and preprocessing
+│   ├── utils.py                        # Utility functions for model training and evaluation
+│   └── similarity/                     # Similarity models
+│       ├── feature_extraction.py       # Feature extraction from paintings
+│       └── similarity_model.py         # Similarity model implementations
 │
-├── scripts/                          # Main training and evaluation scripts
-│   ├── train_cnn_rnn_classifier.py   # Script for training CNN-RNN model
-│   ├── evaluate_cnn_rnn_classifier.py # Script for evaluating CNN-RNN model
-│   └── README.md                     # Documentation for the scripts
+├── scripts/                               # Main training and evaluation scripts
+│   ├── train_cnn_rnn_classifier.py        # Script for training CNN-RNN model
+│   ├── evaluate_cnn_rnn_classifier.py     # Script for evaluating CNN-RNN model
+│   └── README.md                          # Documentation for the scripts
 │
-├── evaluation_results/               # Results from model evaluation
-│   └── test/                         # Results from test dataset
-│       ├── confusion_matrix_style.png # Confusion matrix visualization
-│       ├── evaluation_metrics.json   # Detailed evaluation metrics
-│       └── outliers_style/           # Outlier visualizations
+├── evaluation_results/                    # Results from model evaluation
+│   └── test/                              # Results from test dataset
+│       ├── confusion_matrix_style.png     # Confusion matrix visualization
+│       ├── evaluation_metrics.json        # Detailed evaluation metrics
+│       └── outliers_style/                # Outlier visualizations
 │
-├── model_checkpoints/                # Saved model checkpoints
-│   └── classification_test/          # Checkpoints from test runs
-│       ├── best_style_model.pth      # Best model checkpoint
-│       └── training_curves.png       # Training progress visualization
+├── model_checkpoints/                      # Saved model checkpoints
+│   └── classification_test/                # Checkpoints from test runs
+│       ├── best_style_model.pth            # Best model checkpoint
+│       └── training_curves.png             # Training progress visualization
 │
-├── demo/                             # Demo applications and visualization tools
+├── demo/                                   # Demo applications and visualization tools
 │
-├── train.py                          # Wrapper script for training
-├── evaluate.py                       # Wrapper script for evaluation
+├── train.py                                 # Wrapper script for training
+├── evaluate.py                              # Wrapper script for evaluation
 │
-├── requirements.txt                  # Project dependencies
-├── setup.py                          # Package installation script
-└── README.md                         # Project documentation
+├── requirements.txt                        # Project dependencies
+├── setup.py                                # Package installation script
+└── README.md                               # Project documentation
 ```
 
 ## 🔄 Data Flow
